@@ -1,5 +1,6 @@
  import java.util.*;
 import java.lang.*;
+import java.util.ArrayList;
 
 /**
  * Created by Yang on 1/23/20.
@@ -93,9 +94,20 @@ public class StringArrayUtils {
                 
                 
             }
+            
         }
-    
-        return false;
+        int x = 0;
+        boolean checkZero = true;
+        for(Integer i : map.values() ){
+                if(i.equals(x)){
+                    checkZero = false;
+                    break;
+                }
+                else {
+                    checkZero = true;
+                }
+            }
+        return checkZero;
     }
 
     /**
@@ -135,30 +147,15 @@ public class StringArrayUtils {
      * @return array of Strings with consecutive duplicates removes
      */ // TODO
     public static String[] removeConsecutiveDuplicates(String[] array) {
-        int x = 0;
-        // To get the string without duplicates size
-        for(int i = 1; i<array.length-1; i++){
-        
-        if(!array[i].equals(array[x])){
-         x++;   
+      ArrayList<String> removedDup = new ArrayList<String>();
+      removedDup.add(array[0]);
+      for(int i = 1; i<array.length; i++){
+        if(!array[i].equals(removedDup.get(removedDup.size() -1))){
+        removedDup.add(array[i]);
         }
-        else{
-        
         }
-    }
-    String [] removedConsec = new String[x];   
-    int y = 0;
-    for(int z = 1; z<array.length-1; z++){
-        if(!array[z].equals(array[y])){
-         removedConsec[y] = array[y];   
-        y++;
-        }
-        else{
-        removedConsec[y] = array[z];
-        y++;
-        }
-    }
-    return removedConsec;
+        String [] removedDuplicates = removedDup.toArray(new String[removedDup.size()]);
+        return removedDuplicates;
     }
 
     /**
@@ -166,8 +163,15 @@ public class StringArrayUtils {
      * @return array of Strings with each consecutive duplicate occurrence concatenated as a single string in an array of Strings
      */ // TODO
     public static String[] packConsecutiveDuplicates(String[] array) {
-        return null;
+       ArrayList<String> removedDup = new ArrayList<String>();
+      removedDup.add(array[0]);
+        for(int i = 1; i<array.length; i++){
+            if(array[i].equals(removedDup.get(removedDup.size() -1))){
+                removedDup.add(removedDup.get(removedDup.size() -1).concat(array[i]));
+            }
+        }
+        String [] removedDuplicates = removedDup.toArray(new String[removedDup.size()]);
+        return removedDuplicates;
     }
-
 
 }
